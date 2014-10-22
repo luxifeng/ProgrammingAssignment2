@@ -4,7 +4,7 @@
 ## that stores a matrix and cache's its inverse. 
 
 ## Write a short comment describing this function
-## The first function, makeCacheMatrix creates a special "matrix",
+## This function creates a special "matrix" object that can cache its inverse
 ## which is really a list containing a function to
 ## 1.set the value of the matrix
 ## 2.get the value of the matrix
@@ -31,15 +31,16 @@ makeCacheMatrix <- function(x = matrix()) {
 ## If so, it gets the inverse from the cache and skips the computation.
 ## Otherwise, it calculates the inverse of the data and sets
 ## the value of the inverse in the cache via the setinverse function.
-cacheSolve <- function(z, ...) {
+cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-        m <- z$getinverse()
+        m <- x$getinverse()
         if(!is.null(m)) {
                 message("getting cached data")
                 return(m)
         }
-        data <- z$get()
+        data <- x$get()
+        ## assume that the matrix supplied is always invertible
         m <- solve(data, ...)
-        z$setinverse(m)
+        x$setinverse(m)
         m
 }
